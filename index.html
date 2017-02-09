@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html ng-app="fileUpload">
+
+<head>
+  <meta charset="utf-8" />
+  <title>ng-file-upload Test with angular 1.4.1</title>
+  <script>
+    document.write('<base href="' + document.location + '" />');
+  </script>
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="rzslider.min.css" />
+  <script data-require="angular.js@1.4.4" data-semver="1.4.1" src="https://code.angularjs.org/1.4.4/angular.js"></script>
+
+  <!-- <script src="ng-file-upload-5.0.9.js"></script> -->
+  <!-- <script src="ng-file-upload-5.0.7.js"></script> -->
+  <!-- <script src="ng-file-upload-5.0.6.js"></script> -->
+  <!-- <script src="ng-file-upload-5.0.5.js"></script> -->
+  <!-- doesn't work above 5.0.4 -->
+  <!-- <script src="ng-file-upload-5.0.4.js"></script> -->
+  <script src="ng-file-upload-5.0.9.js"></script>
+  <script src="ng-file-upload-shim.js"></script>
+  <script src="rzslider.min.js"></script>
+  <script src="ui-bootstrap-tpls-2.5.0.min.js"></script>
+
+
+  <script src="app.js"></script>
+</head>
+<body ng-app="fileUpload" ng-controller="MyCtrl">
+<div class="container">
+  <img src="logo"/><h1>Play</h1>
+  <hr> 
+  
+
+  <div class="row">
+    <div class="col-md-2">
+          <button class="btn btn-primary" ngf-select="uploadFiles($files, $invalidFiles)" multiple
+          accept="image/*">Select Files</button>
+    </div>
+    <div class="col-md-2" id="or">
+      OR
+    </div>
+    <form role="form" ng-submit="csvurls()">  
+      <div class="row">
+        <div class="col-xs-6">
+          <div class="input-group ">
+              <input ng-model="csv.urls" type="text" class="form-control" placeholder="CSV URLs" />
+            <div class="input-group-btn">
+              <button type="submit" class="btn btn-primary">Search</button>
+            </div><!-- /btn-group -->
+          </div><!-- /input-group -->
+        </div><!-- /.col-xs-12 -->
+      </div><!-- /.row -->
+    </form>
+  </div> 
+  <hr>
+  <div class="col-md-12">
+      <img src="http://norta.com/App_Themes/Custom/img/loading.gif" ng-hide="loaderHidden"/>
+  </div> 
+  <div id="text" ng-if="text.length> 0">
+    <h2>Text</h2>
+
+    <rzslider rz-slider-floor="textSlider.floor"
+        rz-slider-ceil="textSlider.ceil"
+        rz-slider-model="textSlider.min"
+        rz-slider-high="textSlider.max"
+        rz-slider-step="{{textSlider.step}}"></rzslider>
+
+    <div class="row">
+      <div class="col-xs-1" ng-repeat="t in text |  filter:textMinFilter | filter:textMaxFilter">
+          <a href='{{t.url}}' class="thumbnail" target="_blank">
+              <img src="{{t.url}}" class="img-responsive" uib-tooltip="{{t.topPercentage}}" tooltip-placement="top">
+          </a>
+      </div>  
+    </div>
+  </div> <!--end text-->
+  <br/><br/>
+  <div id="notext" ng-if="notext.length> 0" >
+    <h2>Not Text</h2>
+
+    <rzslider rz-slider-floor="noTextSlider.floor"
+        rz-slider-ceil="noTextSlider.ceil"
+        rz-slider-model="noTextSlider.min"
+        rz-slider-high="noTextSlider.max"
+        rz-slider-step="{{noTextSlider.step}}"></rzslider>
+
+    <div class="row">
+      <div class="col-xs-1" ng-repeat="t in notext | filter:noTextMinFilter | filter:noTextMaxFilter">
+          <a href='{{t.url}}' class="thumbnail" target="_blank">
+              <img src="{{t.url}}" class="img-responsive" uib-tooltip="{{t.topPercentage}}" tooltip-placement="top">
+          </a>
+      </div>  
+    </div>
+  </div>  <!--end no text-->
+</div>  
+
+</body>
+</html>
